@@ -1,5 +1,6 @@
 import pandas as pd
 from pandas.testing import assert_frame_equal
+
 from data_extractor.whatsapp import process
 from pathlib import Path
 
@@ -11,8 +12,6 @@ EXPECTED = [
      }
 ]
 
-df_expected = pd.DataFrame(EXPECTED)
-
 
 def test_process():
     """ Test process function.
@@ -21,6 +20,8 @@ def test_process():
         -------
         AssertionError: When provided expected dataframe could not match the participants dataframe
         """
+    df_expected = pd.DataFrame(EXPECTED)
+
     result = process(DATA_PATH.joinpath("account_info.zip").open("rb"))
     df_result = result[0]["data_frame"]
     assert_frame_equal(df_result, df_expected)
